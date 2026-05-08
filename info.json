@@ -1,0 +1,15 @@
+{
+    "participants": [
+        "Rafael Caram Assemany Moreira"
+    ],
+    "social": [
+        "https://www.linkedin.com/in/rafaelcaram"
+    ],
+    "source-code-repo": "https://github.com/rcaram/rinha-rust-2026",
+    "stack": [
+        "rust",
+        "sqlite-vec",
+        "axum"
+    ],
+    "open_to_work": true
+}
