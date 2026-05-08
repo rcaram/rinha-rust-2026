@@ -13,9 +13,6 @@ services:
 
   api1:
     image: rafaelcaram/rinha-rust-api:latest
-    build:
-      context: .
-      dockerfile: Dockerfile
     mem_limit: 170m
     cpus: "0.475"
     environment:
