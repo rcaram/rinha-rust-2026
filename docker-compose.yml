@@ -12,7 +12,7 @@ services:
       - api2
 
   api1:
-    image: rinha-rust-api:latest
+    image: rafaelcaram/rinha-rust-api:latest
     build:
       context: .
       dockerfile: Dockerfile
@@ -27,7 +27,7 @@ services:
       - db-ram:/data
 
   api2:
-    image: rinha-rust-api:latest
+    image: rafaelcaram/rinha-rust-api:latest
     mem_limit: 170m
     cpus: "0.475"
     depends_on:
