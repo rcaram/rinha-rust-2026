@@ -8,7 +8,7 @@
     "source-code-repo": "https://github.com/rcaram/rinha-rust-2026",
     "stack": [
         "rust",
-        "sqlite-vec",
+        "simd",
         "axum"
     ],
     "open_to_work": true
