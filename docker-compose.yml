@@ -13,32 +13,34 @@ services:
 
   api1:
     image: rafaelcaram/rinha-rust-api:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
     mem_limit: 170m
     cpus: "0.475"
+    volumes:
+      - vectors-ram:/data
     environment:
       PORT: "3000"
-      DATABASE_URL: /data/vectors.db
+      LOAD_SCORE_FILE: /data/references.bin
     entrypoint:
-      ["/bin/sh", "-c", "if [ ! -f /data/vectors.db ]; then cp /app/resources/vectors.db /data/vectors.db; fi; exec /app/rinha-rust"]
-    volumes:
-      - db-ram:/data
-
+      ["/bin/sh", "-c", "if [ ! -f /data/references.bin ]; then cp /app/resources/references.bin /data/references.bin.tmp && mv /data/references.bin.tmp /data/references.bin; fi; exec /app/rinha-rust"]
   api2:
     image: rafaelcaram/rinha-rust-api:latest
     mem_limit: 170m
     cpus: "0.475"
     depends_on:
       - api1
+    volumes:
+      - vectors-ram:/data
     environment:
       PORT: "3000"
-      DATABASE_URL: /data/vectors.db
+      LOAD_SCORE_FILE: /data/references.bin
     entrypoint:
-      ["/bin/sh", "-c", "while [ ! -f /data/vectors.db ]; do sleep 0.05; done; exec /app/rinha-rust"]
-    volumes:
-      - db-ram:/data
+      ["/bin/sh", "-c", "while [ ! -f /data/references.bin ]; do sleep 0.05; done; exec /app/rinha-rust"]
 
 volumes:
-  db-ram:
+  vectors-ram:
     driver: local
     driver_opts:
       type: tmpfs
