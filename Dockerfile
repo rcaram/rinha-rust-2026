@@ -13,7 +13,6 @@ COPY src ./src
 COPY resources ./resources
 
 RUN cargo build --release
-RUN test -f /app/resources/vectors.db
 
 FROM debian:bookworm-slim AS runtime
 
@@ -24,7 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/rinha-rust /app/rinha-rust
-COPY --from=builder /app/resources/vectors.db /app/resources/vectors.db
+COPY --from=builder /app/resources /app/resources
 
 EXPOSE 3000
 
